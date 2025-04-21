@@ -10,38 +10,30 @@ form.addEventListener("submit", (e) => {
 
 random.addEventListener("click", getRandom);
 
-function getImg(query) {
-  // use the fetch API to make a GET request to the Giphy API
-  fetch(
-    `https://api.giphy.com/v1/gifs/translate?api_key=5wJBfcqH9p0lxHUOw9opHrWoAHSzb9KR&s=${query}`,
-    { mode: "cors" }
-  )
-    .then(function (response) {
-      if (!response.ok) {
-        alert(`No GIF found for "${query}"!`);
-      }
-      return response.json();
-    })
-    .then(function (response) {
-      img.src = response.data.images.original.url;
-    })
-    .catch((error) => console.log("ERROR"));
+async function getImg(query) {
+  try {
+    const response = await fetch(
+      `https://api.giphy.com/v1/gifs/translate?api_key=5wJBfcqH9p0lxHUOw9opHrWoAHSzb9KR&s=${query}`,
+      { mode: "cors" }
+    );
+    const gifData = await response.json();
+    img.src = gifData.data.images.original.url;
+  } catch {
+    alert(`No GIF found for "${query}"`);
+    console.log("ERROR retrieving GIF.");
+  }
 }
 
-function getRandom() {
-  fetch(
-    "https://api.giphy.com/v1/gifs/random?api_key=5wJBfcqH9p0lxHUOw9opHrWoAHSzb9KR&s"
-  )
-    .then(function (response) {
-      if (!response.ok) {
-        alert("Problem generating random GIF!");
-      }
-      return response.json();
-    })
-    .then(function (response) {
-      img.src = response.data.images.original.url;
-    })
-    .catch((error) => console.log("ERROR WITH RANDOM IMAGE"));
+async function getRandom() {
+  try {
+    const response = await fetch(
+      "https://api.giphy.com/v1/gifs/random?api_key=5wJBfcqH9p0lxHUOw9opHrWoAHSzb9KR&s"
+    );
+    const gifData = await response.json();
+    img.src = gifData.data.images.original.url;
+  } catch {
+    console.log("ERROR WITH RANDOM IMAGE");
+  }
 }
 
 window.onload = getRandom;
