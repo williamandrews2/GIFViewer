@@ -5,17 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GIF Viewer</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="view.png" />
     <script defer src="main.js"></script>
   </head>
   <body>
     <div class="container">
       <h1>GIF Viewer</h1>
-      <form>
-        <label for="searchbar">
-          <input type="text" id="searchbar" required />
-        </label>
-        <input type="submit" value="Search" id="search-button" />
-      </form>
+      <div class="search-container">
+        <form>
+          <label for="searchbar">
+            <input type="text" id="searchbar" required />
+          </label>
+          <input
+            type="submit"
+            value="Search"
+            id="search-button"
+            class="button"
+          />
+        </form>
+        <button id="random-button" class="button">Random</button>
+      </div>
 
       <div class="image-container">
         <img src="#" alt="image" />
